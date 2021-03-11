@@ -3,41 +3,29 @@ version: '3.3'
 services:
   classif-service:
     image: gcr.io/intelligenceartificielle/docker_classif-service
-    #build: .
-    # do not change the port here unless changing it in the nginx conf
     command: ["/home/classif/start-server.sh","8002"]
     volumes:
       - ./classif-config:/classif-config
       - static_volume:/home/classif/demo-classif/bin/demo-web/demo/static
-    #network_mode: "host"
     expose:
       - 8002
-    #environment:
 
   classif-training:
     image: gcr.io/intelligenceartificielle/docker_classif-service
-    #build: .
     command: /home/classif/train.sh ${LOCAL_USER}
     volumes:
       - ./training/config-fasttext:/classif-config
       - ./training/data :/classif-data
       - ./training/res-fasttext:/classif-result
 
-  # server to handle HTTP requests
   classif-server:
     image: gcr.io/intelligenceartificielle/docker_classif-server
-    #build: ./nginx
     ports:
-      # <host_port>:<server_port> 
-      # interface will be available at localhost:<host_port>
-      # server_port correspond to the "listen" port in nginx.conf server config
       - 8001:80
-    #network_mode: "host"
     volumes:
       - ./server/nginx:/etc/nginx/conf.d
       - static_volume:/home/classif/demo-classif/bin/demo-web/demo/static
     depends_on:
-      # the name of the service
       - classif-service
       
 volumes:
