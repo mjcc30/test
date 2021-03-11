@@ -2,3 +2,11 @@ steps:
   # running docker-compose
   - name: 'docker/compose:1.26.2'
     args: ['up', '-d']
+    
+options:
+  volumes:
+  - name: static_classif
+    path: /home/classif/demo-classif/bin/demo-web/demo/static
+images:
+- 'gcr.io/intelligenceartificielle/docker_classif-service'
+- 'gcr.io/intelligenceartificielle/docker_classif-server'
