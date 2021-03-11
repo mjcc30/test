@@ -7,6 +7,9 @@ options:
   volumes:
   - name: static_classif
     path: /home/classif/demo-classif/bin/demo-web/demo/static
+  - name: config_classif
+    path: /classif-config
+    
 images:
 - 'gcr.io/intelligenceartificielle/docker_classif-service'
 - 'gcr.io/intelligenceartificielle/docker_classif-server'
