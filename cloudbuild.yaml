@@ -3,13 +3,6 @@ steps:
   - name: 'docker/compose:1.26.2'
     args: ['up', '-d']
     
-options:
-  volumes:
-  - name: static_classif
-    path: /home/classif/demo-classif/bin/demo-web/demo/static
-  - name: config_classif
-    path: /classif-config
-    
 images:
-- 'gcr.io/intelligenceartificielle/docker_classif-service'
+- 'gcr.io/intelligenceartificielle/classif-service-build'
 - 'gcr.io/intelligenceartificielle/docker_classif-server'
