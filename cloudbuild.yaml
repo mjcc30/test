@@ -4,7 +4,7 @@ steps:
     args: ['up', '-d']
   # build to container registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'workspace_app:latest', 'gcr.io/intelligenceartificielle/classif-build:latest']
+    args: ['tag', 'workspace_classif-service_1:latest', 'gcr.io/intelligenceartificielle/classif-build:latest']
    # deploy
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
