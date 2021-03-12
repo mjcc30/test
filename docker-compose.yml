@@ -2,28 +2,18 @@ version: '3.3'
 
 services:
   classif-service:
-    image: gcr.io/intelligenceartificielle/docker_classif-service
+    image: gcr.io/intelligenceartificielle/classif-service-build
     command: ["/home/classif/start-server.sh","8002"]
     volumes:
-      - ./classif-config:/classif-config
       - static_volume:/home/classif/demo-classif/bin/demo-web/demo/static
     expose:
       - 8002
-
-  classif-training:
-    image: gcr.io/intelligenceartificielle/docker_classif-service
-    command: /home/classif/train.sh ${LOCAL_USER}
-    volumes:
-      - ./training/config-fasttext:/classif-config
-      - ./training/data :/classif-data
-      - ./training/res-fasttext:/classif-result
 
   classif-server:
     image: gcr.io/intelligenceartificielle/docker_classif-server
     ports:
       - 8001:80
     volumes:
-      - ./server/nginx:/etc/nginx/conf.d
       - static_volume:/home/classif/demo-classif/bin/demo-web/demo/static
     depends_on:
       - classif-service
