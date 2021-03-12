@@ -1,0 +1,7 @@
+runtime: custom
+env: flex
+service: classif-service
+network:
+  instance_tag: default
+  name: default
+  subnetwork_name: default
