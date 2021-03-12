@@ -2,9 +2,14 @@ steps:
   # running docker-compose
   - name: 'docker/compose:1.26.2'
     args: ['up', '-d']
+  # build to container registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'workspace_app:latest', 'gcr.io/intelligenceartificielle/classif-build:latest']
+    images: ['gcr.io/intelligenceartificielle/classif-build:latest']
+   # deploy
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
-    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy --image-url=gcr.io/intelligenceartificielle/classif-build:latest']
     timeout: '1600s'
     
 images:
